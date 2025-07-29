@@ -16,14 +16,14 @@ import {
   Settings,
 } from "lucide-react";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { useTheme } from "./components/ThemeContext";
 
 const Portfolio = () => {
+  const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isManualNavigation, setIsManualNavigation] = useState(false);
-  const [artifactRotation, setArtifactRotation] = useState({ x: 0, y: 0 });
-  const [isArtifactHovered, setIsArtifactHovered] = useState(false);
 
   const skills = {
     languages: [
@@ -73,60 +73,37 @@ const Portfolio = () => {
       company: "Cognizant",
       period: "Jan 2024 - Present",
       location: "Remote, USA",
-      achievements: [
-        "Developed a dynamic front-end using React, enhancing user experience and boosting engagement by 10%",
-        "Built RESTful APIs using Node.js and Express.js, improving data exchange and reducing load times by 15%",
-        "Utilized Java and Spring Boot to create microservices that handle core business logic",
-        "Achieved 95% code coverage with comprehensive unit and integration tests using Jest and Mocha",
-      ],
+      description: "Developed a dynamic front-end using React, enhancing user experience and boosting engagement by 10%. Built RESTful APIs using Node.js and Express.js, improving data exchange and reducing load times by 15%. Utilized Java and Spring Boot to create microservices that handle core business logic, and achieved 95% code coverage with comprehensive unit and integration tests using Jest and Mocha.",
     },
     {
       title: "Software Engineer",
       company: "Infosys",
       period: "Sept 2021 - Jun 2022",
       location: "India",
-      achievements: [
-        "Led migration to AWS Lambda for critical event-driven services, optimizing cost-efficiency",
-        "Engineered front-end state management solution using React's Context API and custom hooks",
-        "Developed high-performance RESTful APIs using Java and Spring Boot, enhancing performance by 20%",
-        "Implemented distributed caching with AWS ElastiCache, improving response times by 15%",
-      ],
+      description: "Led migration to AWS Lambda for critical event-driven services, optimizing cost-efficiency. Engineered front-end state management solution using React's Context API and custom hooks. Developed high-performance RESTful APIs using Java and Spring Boot, enhancing performance by 20%, and implemented distributed caching with AWS ElastiCache, improving response times by 15%.",
     },
     {
       title: "Full Stack Developer",
       company: "Quadrant Televentures Ltd",
       period: "Jan 2021 - June 2021",
       location: "India",
-      achievements: [
-        "Designed and developed a dynamic customer data management dashboard improving accessibility by 30%",
-        "Led implementation of RESTful APIs using Node.js for efficient back-end CRUD operations",
-        "Designed continuous performance monitoring system with AWS CloudWatch",
-      ],
+      description: "Designed and developed a dynamic customer data management dashboard improving accessibility by 30%. Led implementation of RESTful APIs using Node.js for efficient back-end CRUD operations, and designed continuous performance monitoring system with AWS CloudWatch.",
     },
   ];
 
   const projects = [
     {
-      name: "HealthShare: AI-Enhanced Pandemic Data Repository",
+      name: "HealthShare",
       tech: "PostgreSQL, ReactJS, Spring Boot, NodeJS, ExpressJS, Llama, D3JS",
-      description:
-        "Analytics platform containing 120K+ entries of healthcare professionals' experiences during COVID-19",
-      features: [
-        "Serverless Spring Boot functions using AWS Lambda for data filtering",
-        "Integrated Llama language model for contextual analysis and NLP",
-        "Interactive visualization suite with D3JS and custom dashboards",
-      ],
+      description: "Analytics platform with 120K+ healthcare professional entries from COVID-19. Features serverless Spring Boot functions, Llama language model integration for NLP, and interactive D3JS visualizations for data exploration.",
+      githubUrl: "https://github.com/mittallakshayy/health-share",
+      liveUrl: "http://18.218.238.186/",
     },
     {
       name: "GatorMart: A University Marketplace",
       tech: "MERN, AWS, Socket.IO, OAuth, WebRTC, CI/CD",
-      description:
-        "Marketplace platform for SFSU students to connect, list, and sell products",
-      features: [
-        "Robust user authentication using JWT and OAuth with email verification",
-        "Real-time video chat and messaging using WebRTC and Socket.IO",
-        "Complete CI/CD pipeline deployment",
-      ],
+      description: "University marketplace platform for SFSU students to buy and sell products. Features JWT/OAuth authentication, real-time video chat with WebRTC, messaging via Socket.IO, and automated CI/CD deployment.",
+      githubUrl: "https://github.com/mittallakshayy/SFSU-Gatormart",
     },
   ];
 
@@ -208,30 +185,6 @@ const Portfolio = () => {
     }, 1500);
   };
 
-  const handleArtifactMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const mouseX = e.clientX - centerX;
-    const mouseY = e.clientY - centerY;
-    
-    // Calculate rotation based on mouse position
-    const rotationX = (mouseY / rect.height) * -30; // Max 30 degrees
-    const rotationY = (mouseX / rect.width) * 30;   // Max 30 degrees
-    
-    setArtifactRotation({ x: rotationX, y: rotationY });
-  };
-
-  const handleArtifactMouseLeave = () => {
-    setIsArtifactHovered(false);
-    // Smoothly return to original position
-    setArtifactRotation({ x: 0, y: 0 });
-  };
-
-  const handleArtifactMouseEnter = () => {
-    setIsArtifactHovered(true);
-  };
 
   const SkillIcon = ({ category }: { category: string }) => {
     switch (category) {
@@ -248,37 +201,36 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen main-bg relative overflow-x-hidden transition-colors duration-300">
-      {/* Animated Background Elements */}
-
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      {/* Global Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
         <div
-          className="absolute w-96 h-96 hero-orb-1 rounded-full blur-3xl"
+          className="absolute w-96 h-96 hero-orb-1 rounded-full blur-3xl opacity-30"
           style={{
-            transform: `translate(${mousePosition.x * 0.02}px, ${
-              mousePosition.y * 0.02
+            transform: `translate(${mousePosition.x * 0.015}px, ${
+              mousePosition.y * 0.015
             }px)`,
-            top: "10%",
-            left: "10%",
+            top: "5%",
+            left: "5%",
           }}
         />
         <div
-          className="absolute w-96 h-96 hero-orb-2 rounded-full blur-3xl"
+          className="absolute w-96 h-96 hero-orb-2 rounded-full blur-3xl opacity-25"
           style={{
-            transform: `translate(${mousePosition.x * -0.02}px, ${
-              mousePosition.y * -0.02
+            transform: `translate(${mousePosition.x * -0.015}px, ${
+              mousePosition.y * -0.015
             }px)`,
-            top: "60%",
-            right: "10%",
+            top: "70%",
+            right: "5%",
           }}
         />
         <div
-          className="absolute w-96 h-96 hero-orb-3 rounded-full blur-3xl"
+          className="absolute w-96 h-96 hero-orb-3 rounded-full blur-3xl opacity-20"
           style={{
             transform: `translate(${mousePosition.x * 0.01}px, ${
               mousePosition.y * 0.01
             }px)`,
-            top: "30%",
-            right: "30%",
+            top: "40%",
+            right: "40%",
           }}
         />
       </div>
@@ -301,7 +253,7 @@ const Portfolio = () => {
                     className={`nav-link-hover text-sm font-medium transition-all duration-300 hover:scale-105 ${
                       activeSection === item.toLowerCase()
                         ? "theme-accent scale-105"
-                        : "text-gray-600 dark:text-gray-300"
+                        : "text-gray-900 dark:text-gray-300"
                     }`}
                   >
                     {item}
@@ -315,7 +267,7 @@ const Portfolio = () => {
             <div className="md:hidden flex items-center space-x-3">
               <ThemeToggle />
               <button
-                className="nav-link-hover text-gray-600 dark:text-gray-300 transition-colors duration-300"
+                className="nav-link-hover text-gray-900 dark:text-gray-300 transition-colors duration-300"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? (
@@ -330,11 +282,16 @@ const Portfolio = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden bg-white/95 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200/60 dark:border-cyan-500/20 transition-all duration-300 ${
+          className={`md:hidden backdrop-blur-xl border-t border-slate-200/60 dark:border-cyan-500/20 transition-all duration-300 ${
             isMenuOpen
               ? "max-h-64 opacity-100"
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
+          style={{
+            background: theme === 'light' 
+              ? 'rgba(255, 255, 255, 0.95)' 
+              : 'rgba(30, 41, 59, 0.9)'
+          }}
         >
           <div className="px-4 py-2 space-y-2">
             {["About", "Experience", "Projects", "Skills", "Contact"].map(
@@ -342,7 +299,7 @@ const Portfolio = () => {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className="nav-link-hover block w-full text-left px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-cyan-400/10 rounded-lg transition-all duration-300"
+                  className="nav-link-hover block w-full text-left px-4 py-2 text-gray-900 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-cyan-400/10 rounded-lg transition-all duration-300"
                 >
                   {item}
                 </button>
@@ -352,39 +309,39 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section - Split Layout */}
       <section
         id="hero"
-        className="min-h-screen flex items-center px-4 relative"
+        className="min-h-screen flex items-center px-4 pt-20 relative overflow-hidden"
       >
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-center lg:text-left animate-fade-in">
-              <div className="mb-8">
-                <div className="w-24 h-24 mb-6 mx-auto lg:mx-0 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 flex items-center justify-center text-3xl font-bold text-white shadow-2xl shadow-cyan-500/25 animate-float">
-                  LM
-                </div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold theme-text-primary mb-4 animate-slide-up leading-tight">
-                  Lakshay <br />
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
+            
+            {/* Left Side - Text Content */}
+            <div className="space-y-8 animate-slide-in-left text-center lg:text-left">
+              <div>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold theme-text-primary mb-4 leading-tight">
+                  Lakshay{" "}
                   <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                     Mittal
                   </span>
                 </h1>
-                <p className="text-xl md:text-2xl theme-text-secondary mb-6 animate-slide-up-delay-1">
+                
+                <p className="text-xl md:text-2xl font-semibold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                   Full Stack Developer
                 </p>
-                <p className="text-lg theme-text-secondary max-w-xl mb-8 animate-slide-up-delay-2 leading-relaxed">
+                
+                <p className="text-lg theme-text-secondary max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
                   Building scalable web applications with the MERN stack and
                   Spring Boot. Passionate about creating efficient, maintainable
                   solutions with modern technologies.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 mb-8 justify-center lg:justify-start animate-slide-up-delay-3">
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <a
                   href="mailto:mittallakshayy@gmail.com"
-                  className="flex items-center gap-2 btn-primary px-6 py-3 rounded-lg"
+                  className="flex items-center gap-3 btn-primary px-6 py-3 rounded-lg text-base"
                 >
                   <Mail className="w-5 h-5" />
                   Get in Touch
@@ -392,14 +349,14 @@ const Portfolio = () => {
                 <a
                   href="/Lakshay_Mittal.pdf"
                   download
-                  className="flex items-center gap-2 btn-secondary px-6 py-3 rounded-lg"
+                  className="flex items-center gap-3 btn-secondary px-6 py-3 rounded-lg text-base"
                 >
                   <ExternalLink className="w-5 h-5" />
                   View Resume
                 </a>
               </div>
 
-              <div className="flex gap-6 justify-center lg:justify-start animate-slide-up-delay-4">
+              <div className="flex gap-6 justify-center lg:justify-start">
                 <a
                   href="https://github.com/mittallakshayy"
                   className="theme-text-muted hover:text-accent transition-all duration-300 hover:scale-110"
@@ -415,72 +372,52 @@ const Portfolio = () => {
               </div>
             </div>
 
-            {/* Right Visual Element - 3D Interactive Artifact */}
-            <div className="relative flex items-center justify-center animate-slide-in-right perspective-1000">
-              <div 
-                className={`relative w-80 h-80 lg:w-96 lg:h-96 cursor-pointer transform-gpu transition-all duration-300 preserve-3d ${
-                  isArtifactHovered ? 'scale-110' : 'scale-100'
-                }`}
-                style={{
-                  transform: `rotateX(${artifactRotation.x}deg) rotateY(${artifactRotation.y}deg)`,
-                  transformStyle: 'preserve-3d'
-                }}
-                onMouseMove={handleArtifactMouseMove}
-                onMouseEnter={handleArtifactMouseEnter}
-                onMouseLeave={handleArtifactMouseLeave}
-              >
-                {/* 3D Layered Structure */}
+            {/* Right Side - Modern Geometric Artifact */}
+            <div className="flex justify-center lg:justify-end items-center animate-slide-in-right">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96 lg:mr-8">
                 
-                {/* Back layer - Furthest */}
-                <div className="absolute inset-0 artifact-layer-back preserve-3d">
-                  <div className="absolute inset-8 rounded-full hero-ring-1 animate-spin-slow opacity-60" style={{transform: 'translateZ(-60px)'}}></div>
-                  <div className="absolute inset-12 rounded-full hero-ring-2 animate-spin-reverse opacity-40" style={{transform: 'translateZ(-40px)'}}></div>
+                {/* Central Diamond Shape */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-500 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 rotate-45 shadow-2xl animate-pulse"></div>
                 </div>
 
-                {/* Middle layer */}
-                <div className="absolute inset-0 artifact-layer-middle preserve-3d">
-                  {/* Main 3D Cube */}
-                  <div className="absolute inset-20 artifact-cube preserve-3d" style={{transform: 'translateZ(0px)'}}>
-                    {/* Cube faces */}
-                    <div className="cube-face cube-front hero-cube-face"></div>
-                    <div className="cube-face cube-back hero-cube-face" style={{transform: 'rotateY(180deg) translateZ(40px)'}}></div>
-                    <div className="cube-face cube-right hero-cube-face" style={{transform: 'rotateY(90deg) translateZ(40px)'}}></div>
-                    <div className="cube-face cube-left hero-cube-face" style={{transform: 'rotateY(-90deg) translateZ(40px)'}}></div>
-                    <div className="cube-face cube-top hero-cube-face" style={{transform: 'rotateX(90deg) translateZ(40px)'}}></div>
-                    <div className="cube-face cube-bottom hero-cube-face" style={{transform: 'rotateX(-90deg) translateZ(40px)'}}></div>
-                  </div>
-
-                  {/* Floating 3D elements */}
-                  <div className="absolute top-8 left-8 w-4 h-4 hero-float-3d-1 floating-3d animate-float-delay-1" style={{transform: 'translateZ(30px)'}}></div>
-                  <div className="absolute top-12 right-12 w-3 h-6 hero-float-3d-2 floating-3d animate-float-delay-2" style={{transform: 'translateZ(50px)'}}></div>
-                  <div className="absolute bottom-8 left-12 w-6 h-3 hero-float-3d-3 floating-3d animate-float-delay-3" style={{transform: 'translateZ(20px)'}}></div>
-                  <div className="absolute bottom-12 right-8 w-4 h-4 hero-float-3d-4 floating-3d animate-float-delay-4" style={{transform: 'translateZ(40px)'}}></div>
+                {/* Layered Squares */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="w-40 h-40 border-2 border-blue-500/30 dark:border-cyan-400/30 rotate-12 animate-spin-slow"></div>
+                  <div className="absolute inset-4 border-2 border-purple-500/40 dark:border-blue-400/40 rotate-45 animate-spin-reverse"></div>
+                  <div className="absolute inset-8 border-2 border-cyan-500/50 dark:border-purple-400/50 rotate-12"></div>
                 </div>
 
-                {/* Front layer - Closest */}
-                <div className="absolute inset-0 artifact-layer-front preserve-3d">
-                  <div className="absolute inset-16 rounded-full hero-ring-3 animate-spin-slow opacity-80" style={{transform: 'translateZ(20px)'}}></div>
+                {/* Corner Elements */}
+                <div className="absolute inset-0">
+                  {/* Top Right */}
+                  <div className="absolute top-8 right-8 w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-cyan-500 dark:to-blue-500 rounded-lg animate-float shadow-lg"></div>
                   
-                  {/* Central glowing core */}
-                  <div className="absolute inset-1/2 w-6 h-6 hero-core rounded-full animate-pulse" style={{transform: 'translateZ(60px) translate(-50%, -50%)'}}></div>
+                  {/* Top Left */}
+                  <div className="absolute top-16 left-12 w-6 h-6 bg-gradient-to-br from-purple-600 to-cyan-600 dark:from-blue-500 dark:to-purple-500 rounded-full animate-float-delay-1 shadow-lg"></div>
                   
-                  {/* Orbiting particles in 3D */}
-                  <div className="absolute top-1/2 left-1/2 w-2 h-2 hero-particle-3d-1 rounded-full animate-orbit-3d-1" style={{transform: 'translateZ(80px)'}}></div>
-                  <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 hero-particle-3d-2 rounded-full animate-orbit-3d-2" style={{transform: 'translateZ(100px)'}}></div>
-                  <div className="absolute top-1/2 left-1/2 w-2.5 h-2.5 hero-particle-3d-3 rounded-full animate-orbit-3d-3" style={{transform: 'translateZ(120px)'}}></div>
+                  {/* Bottom Left */}
+                  <div className="absolute bottom-12 left-8 w-10 h-10 bg-gradient-to-br from-cyan-600 to-blue-600 dark:from-purple-500 dark:to-cyan-500 rounded-xl animate-float-delay-2 shadow-lg"></div>
+                  
+                  {/* Bottom Right */}
+                  <div className="absolute bottom-16 right-12 w-4 h-4 bg-gradient-to-br from-blue-500 to-cyan-500 dark:from-cyan-400 dark:to-blue-400 rounded-lg animate-float-delay-3 shadow-lg"></div>
                 </div>
 
-                {/* Interactive glow effect */}
-                <div className={`absolute inset-0 rounded-full transition-opacity duration-300 ${
-                  isArtifactHovered ? 'opacity-100 hero-glow-effect' : 'opacity-0'
-                }`} style={{transform: 'translateZ(-20px)'}}></div>
+                {/* Animated Lines */}
+                <div className="absolute inset-0">
+                  <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent dark:via-cyan-400/50 animate-pulse"></div>
+                  <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-purple-500/50 to-transparent dark:via-blue-400/50 animate-pulse"></div>
+                </div>
+
+                {/* Background Glow */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-radial from-blue-500/20 via-purple-500/10 to-transparent dark:from-cyan-400/20 dark:via-blue-400/10 rounded-full blur-xl"></div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce lg:block hidden">
-            <ChevronDown className="w-8 h-8 theme-accent" />
-          </div>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+          <ChevronDown className="w-8 h-8 theme-accent" />
         </div>
       </section>
 
@@ -575,17 +512,9 @@ const Portfolio = () => {
                     <p className="theme-text-muted text-sm">{exp.location}</p>
                   </div>
                 </div>
-                <ul className="space-y-2">
-                  {exp.achievements.map((achievement, i) => (
-                    <li
-                      key={i}
-                      className="theme-text-secondary flex items-start gap-2 hover:opacity-80 transition-colors duration-300"
-                    >
-                      <span className="theme-accent mt-1 animate-pulse">•</span>
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
+                <p className="theme-text-secondary leading-relaxed">
+                  {exp.description}
+                </p>
               </div>
             ))}
           </div>
@@ -612,19 +541,30 @@ const Portfolio = () => {
                 <p className="project-description mb-6 leading-relaxed">
                   {project.description}
                 </p>
-                <ul className="space-y-2">
-                  {project.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="project-feature text-sm flex items-start gap-3 transition-colors duration-300 py-1"
+
+                {/* Project Action Buttons */}
+                <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 btn-secondary px-4 py-2 rounded-lg text-sm font-medium"
+                  >
+                    <Github className="w-4 h-4" />
+                    GitHub
+                  </a>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 btn-primary px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                      <span className="project-bullet mt-1 animate-pulse">
-                        •
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                      <ExternalLink className="w-4 h-4" />
+                      Live Demo
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -341,6 +341,11 @@ html.dark .hero-glow-effect {
   100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
 }
 
+/* Three.js Canvas Styling */
+canvas {
+  display: block;
+}
+
 @keyframes float-3d {
   0%, 100% { transform: translateY(0px) translateZ(0px); }
   50% { transform: translateY(-15px) translateZ(10px); }
