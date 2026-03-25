@@ -671,3 +671,691 @@ footer {
   border-color: var(--border-primary) !important;
   box-shadow: var(--shadow-sm);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   📄 RESUME PAGE STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Top Bar ─── */
+.resume-header {
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Download Button ─── */
+.resume-download-btn {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  box-shadow: var(--shadow-accent);
+}
+.resume-download-btn:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-primary));
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+/* ─── Identity Card ─── */
+.resume-identity-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+.resume-identity-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+html.dark .resume-identity-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.resume-accent-bar {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-purple));
+  background-size: 300% 100%;
+  animation: gradient-slide 4s ease infinite;
+}
+
+@keyframes gradient-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.resume-name-accent {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.resume-title-gradient {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Contact Pills ─── */
+.resume-contact-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.resume-contact-pill:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(2px);
+}
+.resume-contact-pill svg {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.resume-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-primary);
+  color: var(--text-muted);
+  transition: all 0.25s ease;
+}
+.resume-social-icon:hover {
+  color: var(--text-accent);
+  border-color: var(--accent-primary);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-2px);
+}
+
+/* ─── Section Headings ─── */
+.resume-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary), transparent) 1;
+}
+.resume-section-heading svg {
+  color: var(--accent-primary);
+}
+
+/* ─── Skills Grid ─── */
+.resume-skill-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: resume-fade-up 0.5s ease both;
+}
+.resume-skill-group:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+.resume-skill-icon {
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resume-skill-icon-wrap {
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.625rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  flex-shrink: 0;
+}
+
+/* ─── Geometric Artifact ─── */
+.resume-hex-ring {
+  opacity: 0.8;
+}
+
+html:not(.dark) .resume-hex-stroke {
+  stroke: rgba(37, 99, 235, 0.25);
+  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.15));
+}
+html.dark .resume-hex-stroke {
+  stroke: rgba(56, 189, 248, 0.3);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.2));
+}
+
+html:not(.dark) .resume-hex-stroke-inner {
+  stroke: rgba(124, 58, 237, 0.2);
+  filter: drop-shadow(0 0 6px rgba(124, 58, 237, 0.12));
+}
+html.dark .resume-hex-stroke-inner {
+  stroke: rgba(139, 92, 246, 0.25);
+  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.15));
+}
+
+.resume-central-block {
+  transition: all 0.3s ease;
+}
+html:not(.dark) .resume-central-block {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.3), 0 0 60px rgba(124, 58, 237, 0.15);
+}
+html.dark .resume-central-block {
+  background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
+  box-shadow: 0 12px 40px rgba(14, 165, 233, 0.3), 0 0 60px rgba(139, 92, 246, 0.15);
+}
+
+.resume-central-text {
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.resume-orbit-node {
+  transition: all 0.3s ease;
+}
+html:not(.dark) .resume-orbit-node {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9));
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: #2563eb;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15);
+}
+html:not(.dark) .resume-orbit-node:hover {
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+  transform: scale(1.1);
+}
+html.dark .resume-orbit-node {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(51, 65, 85, 0.8));
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  color: #38bdf8;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+}
+html.dark .resume-orbit-node:hover {
+  border-color: rgba(14, 165, 233, 0.6);
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.3);
+  transform: scale(1.1);
+}
+
+html:not(.dark) .resume-deco-dot {
+  background: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+html.dark .resume-deco-dot {
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+/* ═══════════ CODE TERMINAL ARTIFACT ═══════════ */
+
+/* Terminal Glow */
+html:not(.dark) .artifact-terminal-glow {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(124, 58, 237, 0.1));
+}
+html.dark .artifact-terminal-glow {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(99, 102, 241, 0.1));
+}
+
+/* Terminal Window */
+.artifact-terminal {
+  backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  z-index: 1;
+}
+html:not(.dark) .artifact-terminal {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88));
+  border-color: rgba(148, 163, 184, 0.25);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08), 0 8px 25px rgba(99, 102, 241, 0.06);
+}
+html.dark .artifact-terminal {
+  background: linear-gradient(165deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88));
+  border-color: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 8px 25px rgba(56, 189, 248, 0.05);
+}
+
+/* Title Bar */
+.artifact-terminal-titlebar {
+  border-bottom: 1px solid transparent;
+}
+html:not(.dark) .artifact-terminal-titlebar {
+  background: rgba(241, 245, 249, 0.8);
+  border-bottom-color: rgba(148, 163, 184, 0.15);
+}
+html.dark .artifact-terminal-titlebar {
+  background: rgba(15, 23, 42, 0.6);
+  border-bottom-color: rgba(51, 65, 85, 0.4);
+}
+html:not(.dark) .artifact-terminal-title { color: #64748b; }
+html.dark .artifact-terminal-title { color: #94a3b8; }
+
+/* ── Syntax Highlighting ── */
+html:not(.dark) .code-keyword { color: #7c3aed; font-weight: 600; }
+html.dark .code-keyword { color: #c084fc; font-weight: 600; }
+
+html:not(.dark) .code-variable { color: #2563eb; }
+html.dark .code-variable { color: #93c5fd; }
+
+html:not(.dark) .code-operator { color: #64748b; }
+html.dark .code-operator { color: #94a3b8; }
+
+html:not(.dark) .code-property { color: #059669; }
+html.dark .code-property { color: #6ee7b7; }
+
+html:not(.dark) .code-string { color: #d97706; }
+html.dark .code-string { color: #fbbf24; }
+
+html:not(.dark) .code-punctuation { color: #94a3b8; }
+html.dark .code-punctuation { color: #64748b; }
+
+html:not(.dark) .code-boolean { color: #dc2626; font-weight: 600; }
+html.dark .code-boolean { color: #fb923c; font-weight: 600; }
+
+.code-indent {
+  display: inline-block;
+  width: 1.5rem;
+}
+
+/* ── Code Line Animation ── */
+@keyframes artifact-line-reveal {
+  0% { opacity: 0; transform: translateX(-8px); filter: blur(2px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+.artifact-code-line {
+  opacity: 0;
+  animation: artifact-line-reveal 0.5s ease-out forwards;
+}
+
+/* ── Blinking Cursor ── */
+@keyframes artifact-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.artifact-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: artifact-blink 1s step-end infinite;
+}
+html:not(.dark) .artifact-cursor { background: #7c3aed; }
+html.dark .artifact-cursor { background: #c084fc; }
+
+/* ═══════════ FLOATING TECH BADGES ═══════════ */
+@keyframes artifact-badge-float {
+  0% { opacity: 0; transform: translateY(12px) scale(0.85); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes artifact-badge-hover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.artifact-float-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.75rem;
+  backdrop-filter: blur(12px);
+  z-index: 2;
+  opacity: 0;
+  animation: artifact-badge-float 0.6s ease-out forwards, artifact-badge-hover 4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.6s);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.artifact-float-badge:hover { transform: translateY(-4px) scale(1.08) !important; }
+
+html:not(.dark) .artifact-float-badge {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  color: #334155;
+}
+html.dark .artifact-float-badge {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  color: #e2e8f0;
+}
+
+/* Badge-specific accent colors */
+html:not(.dark) .artifact-badge-react { border-color: rgba(6, 182, 212, 0.3); color: #0891b2; }
+html.dark .artifact-badge-react { border-color: rgba(34, 211, 238, 0.3); color: #22d3ee; }
+html:not(.dark) .artifact-badge-node { border-color: rgba(22, 163, 74, 0.3); color: #16a34a; }
+html.dark .artifact-badge-node { border-color: rgba(74, 222, 128, 0.3); color: #4ade80; }
+html:not(.dark) .artifact-badge-aws { border-color: rgba(234, 179, 8, 0.3); color: #ca8a04; }
+html.dark .artifact-badge-aws { border-color: rgba(250, 204, 21, 0.3); color: #facc15; }
+html:not(.dark) .artifact-badge-spring { border-color: rgba(22, 163, 74, 0.3); color: #15803d; }
+html.dark .artifact-badge-spring { border-color: rgba(74, 222, 128, 0.3); color: #86efac; }
+html:not(.dark) .artifact-badge-docker { border-color: rgba(37, 99, 235, 0.3); color: #2563eb; }
+html.dark .artifact-badge-docker { border-color: rgba(96, 165, 250, 0.3); color: #60a5fa; }
+html:not(.dark) .artifact-badge-ts { border-color: rgba(37, 99, 235, 0.3); color: #1d4ed8; }
+html.dark .artifact-badge-ts { border-color: rgba(96, 165, 250, 0.3); color: #93c5fd; }
+
+/* ── Connection Lines ── */
+html:not(.dark) .artifact-connection-line { stroke: rgba(148, 163, 184, 0.2); stroke-width: 1; }
+html.dark .artifact-connection-line { stroke: rgba(56, 189, 248, 0.12); stroke-width: 1; }
+
+/* ── Floating Particles ── */
+@keyframes artifact-float-particle {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+  50% { opacity: 0.7; transform: translateY(-18px) scale(1); }
+}
+.artifact-particle {
+  animation: artifact-float-particle 3s ease-in-out infinite;
+}
+html:not(.dark) .artifact-particle {
+  background: #6366f1;
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.4);
+}
+html.dark .artifact-particle {
+  background: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.5);
+}
+
+.resume-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+html:not(.dark) .resume-skill-pill {
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  color: #4338ca;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+html:not(.dark) .resume-skill-pill:hover {
+  background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+  color: #3730a3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+}
+
+html.dark .resume-skill-pill {
+  background: rgba(14, 165, 233, 0.12);
+  color: #7dd3fc;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+html.dark .resume-skill-pill:hover {
+  background: rgba(14, 165, 233, 0.25);
+  color: #bae6fd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.2);
+}
+
+/* ─── Timeline ─── */
+.resume-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.resume-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-tertiary), transparent);
+  border-radius: 2px;
+}
+
+.resume-timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+  animation: resume-fade-up 0.5s ease both;
+}
+.resume-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.resume-timeline-dot {
+  position: absolute;
+  left: -1.625rem;
+  top: 0.375rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--bg-card), 0 0 0 5px var(--accent-primary);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+.resume-timeline-item:hover .resume-timeline-dot {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px var(--bg-card), 0 0 0 5px var(--accent-primary), 0 0 12px var(--accent-primary);
+}
+
+.resume-timeline-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.resume-timeline-content:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-accent);
+  transform: translateX(4px);
+}
+
+.resume-exp-title {
+  color: var(--text-accent);
+}
+
+.resume-period-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+html:not(.dark) .resume-period-badge {
+  background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+  color: #2563eb;
+}
+html.dark .resume-period-badge {
+  background: rgba(14, 165, 233, 0.15);
+  color: #7dd3fc;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.resume-gpa-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+html:not(.dark) .resume-gpa-badge {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  color: #059669;
+}
+html.dark .resume-gpa-badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* ─── Bullet Items ─── */
+.resume-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.resume-bullet-dot {
+  flex-shrink: 0;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  margin-top: 0.45rem;
+}
+
+/* ─── Education Cards ─── */
+.resume-edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: resume-fade-up 0.5s ease both;
+}
+.resume-edu-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+/* ─── Project Cards ─── */
+.resume-project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: resume-fade-up 0.5s ease both;
+  position: relative;
+  overflow: hidden;
+}
+.resume-project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.resume-project-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-accent);
+  transform: translateY(-3px);
+}
+.resume-project-card:hover::before {
+  opacity: 1;
+}
+
+.resume-tech-tag {
+  display: inline-flex;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+html:not(.dark) .resume-tech-tag {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+html.dark .resume-tech-tag {
+  background: rgba(71, 85, 105, 0.3);
+  color: #94a3b8;
+  border: 1px solid rgba(71, 85, 105, 0.5);
+}
+
+/* ─── Link Buttons ─── */
+.resume-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  background: transparent;
+}
+.resume-link-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-accent);
+  background: var(--bg-card);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.resume-link-btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white !important;
+  border: none;
+}
+.resume-link-btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-primary));
+  color: white !important;
+  box-shadow: var(--shadow-accent);
+}
+
+/* ─── Page Animations ─── */
+@keyframes resume-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Print Styles ─── */
+@media print {
+  .resume-header,
+  .resume-download-btn,
+  .resume-link-btn,
+  footer {
+    display: none !important;
+  }
+  .resume-identity-card,
+  .resume-timeline-content,
+  .resume-skill-group,
+  .resume-edu-card,
+  .resume-project-card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+    break-inside: avoid;
+  }
+  main {
+    padding-top: 0 !important;
+  }
+}

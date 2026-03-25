@@ -30,24 +30,22 @@ const Portfolio = () => {
       "Java",
       "JavaScript/TypeScript",
       "Python",
-      "C/C++",
+      "C++",
       "SQL",
       "HTML/CSS",
     ],
     cloud: [
-      "AWS (EC2, Lambda, S3)",
-      "GCP (Compute Engine, Google Storage)",
+      "AWS",
+      "GCP",
       "MySQL",
       "PostgreSQL",
       "MongoDB",
-      "Oracle",
-      "Firebase",
+      "Redis",
+      "Kafka",
     ],
     frameworks: [
       "ReactJS",
       "Redux",
-      "Bootstrap",
-      "ThreeJS",
       "NodeJS",
       "ExpressJS",
       "Spring Boot",
@@ -55,15 +53,11 @@ const Portfolio = () => {
     ],
     tools: [
       "Docker",
-      "Nginx",
+      "Kubernetes",
       "Jenkins",
-      "Postman",
       "Git",
-      "Github",
       "JIRA",
       "Figma",
-      "AdobeXD",
-      "Drupal",
     ],
   };
 
@@ -71,7 +65,7 @@ const Portfolio = () => {
     {
       title: "Full Stack Developer",
       company: "Cognizant",
-      period: "Jan 2024 - Present",
+      period: "Jan 2024 - Jan 2026",
       location: "Remote, USA",
       description: "Developed a dynamic front-end using React, enhancing user experience and boosting engagement by 10%. Built RESTful APIs using Node.js and Express.js, improving data exchange and reducing load times by 15%. Utilized Java and Spring Boot to create microservices that handle core business logic, and achieved 95% code coverage with comprehensive unit and integration tests using Jest and Mocha.",
     },
@@ -334,7 +328,7 @@ const Portfolio = () => {
                 <p className="text-lg theme-text-secondary max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
                   Building scalable web applications with the MERN stack and
                   Spring Boot. Passionate about creating efficient, maintainable
-                  solutions with modern technologies.
+                  solutions with modern technologies and agentic AI workflows.
                 </p>
               </div>
 
@@ -347,8 +341,7 @@ const Portfolio = () => {
                   Get in Touch
                 </a>
                 <a
-                  href="/Lakshay_Mittal.pdf"
-                  download
+                  href="/resume"
                   className="flex items-center gap-3 btn-secondary px-6 py-3 rounded-lg text-base"
                 >
                   <ExternalLink className="w-5 h-5" />
@@ -430,10 +423,9 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-slide-in-left">
               <p className="text-lg theme-text-secondary leading-relaxed">
-                I'm a Software Engineer with 2+ years of experience developing
-                scalable and maintainable web applications. I specialize in
-                full-stack development with expertise in the MERN stack and
-                Spring Boot.
+                I'm a Software Engineer experienced in the MERN stack and
+                Spring Boot, with a focus on scalable web applications,
+                microservices, and agentic AI workflows.
               </p>
               <p className="text-lg theme-text-secondary leading-relaxed">
                 I have a strong foundation in algorithms and data structures,
