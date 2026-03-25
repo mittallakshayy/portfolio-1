@@ -11,7 +11,6 @@ import {
   Database,
   Cloud,
   Settings,
-  Globe,
   ChevronDown,
 } from "lucide-react";
 import { useTheme } from "./ThemeContext";
