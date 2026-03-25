@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App.tsx";
 import ResumePage from "./components/ResumePage.tsx";
 import "./index.css";
 import { ThemeProvider } from "./components/ThemeContext";
@@ -11,8 +10,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/resume" element={<ResumePage />} />
+          {/* <Route path="/" element={<App />} /> */}
+          <Route path="/" element={<ResumePage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
