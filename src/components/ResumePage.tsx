@@ -40,7 +40,7 @@ const ResumePage = () => {
     {
       title: "Full Stack Developer",
       company: "Cognizant",
-      period: "Jan 2024 - Jan 2026",
+      period: "Jan 2025 - Feb 2026",
       location: "Remote, USA",
       bullets: [
         "Developed a dynamic front-end using React, enhancing user experience and boosting engagement by 10%",
