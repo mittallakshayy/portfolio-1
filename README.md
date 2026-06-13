@@ -3,12 +3,6 @@
 A fast, single-page personal portfolio and résumé site built with React, TypeScript, and Tailwind CSS. It presents skills, experience, education, and projects with a polished, motion-rich interface and a light/dark theme.
 
 🔗 **Live:** _add your deployment URL here_
-
-![Built with React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-7-646cff?logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss&logoColor=white)
-
 ---
 
 ## Features
