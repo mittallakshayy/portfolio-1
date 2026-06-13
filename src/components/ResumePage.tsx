@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Github,
   Linkedin,
@@ -11,23 +11,78 @@ import {
   Database,
   Cloud,
   Settings,
-  ChevronDown,
+  ArrowUpRight,
+  ArrowDown,
 } from "lucide-react";
-import { useTheme } from "./ThemeContext";
 import { ThemeToggle } from "./ThemeToggle";
+import { Reveal } from "./Reveal";
 
 const ResumePage = () => {
-  const { } = useTheme();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
 
+  // Smooth, performant parallax + scroll progress driven through CSS custom
+  // properties on the root node — avoids re-rendering the tree on every move.
   useEffect(() => {
     window.scrollTo(0, 0);
+    const root = rootRef.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let raf = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (reduceMotion) return;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const px = e.clientX / window.innerWidth - 0.5;
+        const py = e.clientY / window.innerHeight - 0.5;
+        root?.style.setProperty("--px", px.toFixed(4));
+        root?.style.setProperty("--py", py.toFixed(4));
+      });
     };
+
+    const handleScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const progress = max > 0 ? doc.scrollTop / max : 0;
+      root?.style.setProperty("--scroll", progress.toFixed(4));
+      setScrolled(doc.scrollTop > 24);
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
+
+  // Cursor-following glow on cards.
+  const handleSpotlight = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+  };
+
+  // Magnetic pull toward the cursor for primary buttons.
+  const handleMagnetic = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${x * 0.3}px, ${y * 0.45}px)`;
+  };
+  const resetMagnetic = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.transform = "";
+  };
+
+  const marqueeTech = [
+    "React", "TypeScript", "Node.js", "Express", "Spring Boot", "Java",
+    "Python", "AWS", "GCP", "Docker", "Kubernetes", "PostgreSQL",
+    "MongoDB", "Redis", "Kafka", "Redux", "Hibernate", "Jenkins",
+  ];
 
   const skills = {
     languages: ["Java", "JavaScript/TypeScript", "Python", "C++", "SQL", "HTML/CSS"],
@@ -134,55 +189,83 @@ const ResumePage = () => {
     }
   };
 
+  const navLinks = [
+    { href: "#skills", label: "Skills" },
+    { href: "#experience", label: "Experience" },
+    { href: "#education", label: "Education" },
+    { href: "#projects", label: "Projects" },
+  ];
+
+  const SectionHeader = ({ num, title }: { num: string; title: string }) => (
+    <Reveal className="section-head">
+      <div className="section-eyebrow">
+        <span className="section-num">{num}</span>
+        <span className="section-eyebrow-line" />
+      </div>
+      <h2 className="section-title">{title}</h2>
+    </Reveal>
+  );
+
   return (
-    <div className="min-h-screen main-bg relative overflow-x-hidden transition-colors duration-300">
+    <div ref={rootRef} className="min-h-screen main-bg relative overflow-x-hidden transition-colors duration-300">
+
+      {/* Scroll Progress Indicator */}
+      <div className="scroll-progress" />
+
+      {/* Animated aurora wash */}
+      <div className="aurora" />
+
+      {/* Grain / texture overlay */}
+      <div className="grain-overlay" />
 
       {/* Global Animated Background Orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
         <div
-          className="absolute w-96 h-96 hero-orb-1 rounded-full blur-3xl opacity-30"
-          style={{
-            transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`,
-            top: "5%",
-            left: "5%",
-          }}
-        />
+          className="absolute w-[28rem] h-[28rem] parallax-orb blur-3xl"
+          style={{ transform: "translate(calc(var(--px,0) * 60px), calc(var(--py,0) * 60px))", top: "2%", left: "2%" }}
+        >
+          <div className="orb-blob hero-orb-1 blur-2xl" style={{ animationDelay: "0s" }} />
+        </div>
         <div
-          className="absolute w-96 h-96 hero-orb-2 rounded-full blur-3xl opacity-25"
-          style={{
-            transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px)`,
-            top: "70%",
-            right: "5%",
-          }}
-        />
+          className="absolute w-[30rem] h-[30rem] parallax-orb blur-3xl"
+          style={{ transform: "translate(calc(var(--px,0) * -60px), calc(var(--py,0) * -60px))", top: "62%", right: "2%" }}
+        >
+          <div className="orb-blob hero-orb-2 blur-2xl" style={{ animationDelay: "-6s" }} />
+        </div>
         <div
-          className="absolute w-96 h-96 hero-orb-3 rounded-full blur-3xl opacity-20"
-          style={{
-            transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`,
-            top: "40%",
-            right: "40%",
-          }}
-        />
+          className="absolute w-[26rem] h-[26rem] parallax-orb blur-3xl"
+          style={{ transform: "translate(calc(var(--px,0) * 40px), calc(var(--py,0) * 40px))", top: "35%", right: "38%" }}
+        >
+          <div className="orb-blob hero-orb-3 blur-2xl" style={{ animationDelay: "-11s" }} />
+        </div>
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 dark:bg-slate-900/80 backdrop-blur-xl z-50 border-b border-slate-200/60 dark:border-cyan-500/20 transition-colors duration-300 shadow-sm dark:shadow-none">
+      <nav className={`nav-bar fixed top-0 w-full backdrop-blur-xl z-50 border-b transition-all duration-300 ${scrolled ? "" : "at-top"}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <a
-              href="/"
-              className="flex items-center gap-2 theme-text-secondary hover:text-accent transition-colors duration-300 text-sm font-medium"
-            >
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            <a href="#top" className="flex items-center gap-2 group">
+              <span className="text-2xl font-bold gradient-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 LM
               </span>
             </a>
-            <div className="flex items-center gap-4">
+
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <a key={link.href} href={link.href} className="nav-anchor">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3">
               <ThemeToggle />
               <a
                 href="/Lakshay Mittal.pdf"
                 download
-                className="flex items-center gap-2 btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
+                className="hidden sm:flex items-center gap-2 btn-pill btn-pill-primary"
+                onMouseMove={handleMagnetic}
+                onMouseLeave={resetMagnetic}
               >
                 <Download className="w-4 h-4" />
                 Resume
@@ -193,30 +276,37 @@ const ResumePage = () => {
       </nav>
 
       {/* ═══════════ HERO SECTION — Name Left + Artifact Right ═══════════ */}
-      <section className="min-h-screen flex items-center px-4 pt-20 relative overflow-hidden">
+      <section id="top" className="min-h-screen flex items-center px-4 pt-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[80vh]">
 
             {/* Left Side — Identity */}
-            <div className="space-y-8 animate-slide-in-left text-center lg:text-left">
+            <div className="space-y-7 animate-slide-in-left text-center lg:text-left">
+              <div className="flex justify-center lg:justify-start">
+                <span className="status-pill">
+                  <span className="status-dot" />
+                  Available for new opportunities
+                </span>
+              </div>
+
               <div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold theme-text-primary mb-4 leading-tight">
+                <h1 className="hero-name text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold theme-text-primary mb-5">
                   Lakshay{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                  <span className="gradient-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                     Mittal
                   </span>
                 </h1>
 
-                <p className="text-xl md:text-2xl font-semibold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-cyan-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                <p className="text-xl md:text-2xl font-semibold mb-6 theme-text-secondary tracking-tight">
                   Full Stack Developer
                 </p>
 
-                <p className="text-lg theme-text-secondary max-w-xl mx-auto lg:mx-0 leading-relaxed mb-8">
+                <p className="text-lg theme-text-muted max-w-xl mx-auto lg:mx-0 leading-relaxed">
                   Software Engineer experienced in MERN stack and Spring Boot, with a focus on scalable web applications, microservices, and agentic AI workflows.
                 </p>
               </div>
 
-              {/* Contact & Social Row */}
+              {/* Contact Row */}
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 <a href="mailto:mittallakshayy@gmail.com" className="resume-contact-pill">
                   <Mail className="w-4 h-4" />
@@ -232,32 +322,46 @@ const ResumePage = () => {
                 </span>
               </div>
 
-              <div className="flex gap-5 justify-center lg:justify-start">
+              {/* CTAs + Social */}
+              <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start pt-1">
                 <a
-                  href="https://github.com/mittallakshayy"
-                  className="theme-text-muted hover:text-accent transition-all duration-300 hover:scale-110"
-                  target="_blank" rel="noopener noreferrer"
+                  href="#projects"
+                  className="btn-pill btn-pill-primary"
+                  onMouseMove={handleMagnetic}
+                  onMouseLeave={resetMagnetic}
                 >
-                  <Github className="w-7 h-7" />
+                  View my work
+                  <ArrowUpRight className="w-4 h-4" />
                 </a>
-                <a
-                  href="https://www.linkedin.com/in/mittallakshayy/"
-                  className="theme-text-muted hover:text-accent transition-all duration-300 hover:scale-110"
-                  target="_blank" rel="noopener noreferrer"
-                >
-                  <Linkedin className="w-7 h-7" />
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    href="https://github.com/mittallakshayy"
+                    className="resume-social-icon"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/mittallakshayy/"
+                    className="resume-social-icon"
+                    target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Right Side — Animated Code Terminal Artifact */}
             <div className="flex justify-center lg:justify-end items-center animate-slide-in-right">
               <div
-                className="relative w-[300px] h-[420px] sm:w-[340px] sm:h-[430px] lg:w-[480px] lg:h-[440px]"
+                className="artifact-tilt relative w-[300px] h-[420px] sm:w-[340px] sm:h-[430px] lg:w-[480px] lg:h-[440px]"
                 style={{
-                  transform: `perspective(1000px) rotateY(${(mousePosition.x - window.innerWidth / 2) * 0.008}deg) rotateX(${(mousePosition.y - window.innerHeight / 2) * -0.005}deg) translate(${mousePosition.x * 0.006}px, ${mousePosition.y * 0.006}px)`,
-                  transition: 'transform 0.15s ease-out',
-                  overflow: 'visible',
+                  transform:
+                    "perspective(1100px) rotateY(calc(var(--px,0) * 16deg)) rotateX(calc(var(--py,0) * -11deg)) translate(calc(var(--px,0) * 14px), calc(var(--py,0) * 14px))",
+                  overflow: "visible",
                 }}
               >
                 {/* Background Glow */}
@@ -408,150 +512,155 @@ const ResumePage = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-          <ChevronDown className="w-8 h-8 theme-accent" />
-        </div>
+        <a href="#skills" aria-label="Scroll to content" className="hero-scroll-cue absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+          <span className="hero-scroll-text">Scroll</span>
+          <ArrowDown className="w-5 h-5 animate-bounce" />
+        </a>
       </section>
+
+      {/* ═══════════ TECH MARQUEE ═══════════ */}
+      <div className="marquee" aria-hidden="true">
+        <div className="marquee-track">
+          {[...marqueeTech, ...marqueeTech].map((tech, i) => (
+            <span key={i} className="marquee-item">{tech}</span>
+          ))}
+        </div>
+      </div>
 
       {/* ═══════════ CONTENT SECTIONS ═══════════ */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 
         {/* ─── Skills Section ─── */}
-        <section className="py-20 relative">
-          <h2 className="text-4xl font-bold text-center theme-text-primary mb-12 animate-fade-in-up">
-            Skills & Technologies
-          </h2>
+        <section id="skills" className="py-24 lg:py-32 scroll-mt-24 relative">
+          <SectionHeader num="01" title="Skills & Technologies" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {Object.entries(skills).map(([category, items], index) => (
-              <div
-                key={category}
-                className="resume-skill-group hover:scale-105"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="resume-skill-icon-wrap">
-                    <SkillIcon category={category} />
+              <Reveal key={category} delay={index * 90}>
+                <div className="resume-skill-group spotlight-card h-full" onMouseMove={handleSpotlight}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="resume-skill-icon-wrap">
+                      <SkillIcon category={category} />
+                    </div>
+                    <h3 className="text-base font-bold theme-text-primary">
+                      {categoryLabel(category)}
+                    </h3>
                   </div>
-                  <h3 className="text-base font-bold theme-text-primary">
-                    {categoryLabel(category)}
-                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {items.map((skill) => (
+                      <span key={skill} className="resume-skill-pill">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((skill) => (
-                    <span key={skill} className="resume-skill-pill">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ─── Experience Section ─── */}
-        <section className="py-20 relative">
-          <h2 className="text-4xl font-bold text-center theme-text-primary mb-12 animate-fade-in-up">
-            Experience
-          </h2>
+        <section id="experience" className="py-24 lg:py-32 scroll-mt-24 relative">
+          <SectionHeader num="02" title="Experience" />
           <div className="resume-timeline">
             {experiences.map((exp, index) => (
-              <div
-                key={index}
-                className="resume-timeline-item"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="resume-timeline-dot"></div>
-                <div className="resume-timeline-content hover:scale-[1.01]">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold resume-exp-title">{exp.title}</h3>
-                      <p className="text-lg font-semibold theme-text-primary">{exp.company}</p>
+              <Reveal key={index} delay={index * 120}>
+                <div className="resume-timeline-item">
+                  <div className="resume-timeline-dot"></div>
+                  <div className="resume-timeline-content spotlight-card" onMouseMove={handleSpotlight}>
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                      <div>
+                        <h3 className="text-xl font-bold resume-exp-title">{exp.title}</h3>
+                        <p className="text-lg font-semibold theme-text-primary">{exp.company}</p>
+                      </div>
+                      <div className="sm:text-right flex-shrink-0">
+                        <span className="resume-period-badge">{exp.period}</span>
+                        <p className="theme-text-muted text-sm mt-1">{exp.location}</p>
+                      </div>
                     </div>
-                    <div className="sm:text-right flex-shrink-0">
-                      <span className="resume-period-badge">{exp.period}</span>
-                      <p className="theme-text-muted text-sm mt-1">{exp.location}</p>
-                    </div>
+                    <ul className="space-y-2.5">
+                      {exp.bullets.map((bullet, i) => (
+                        <li key={i} className="resume-bullet-item">
+                          <span className="resume-bullet-dot"></span>
+                          <span className="theme-text-secondary text-sm leading-relaxed">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-2.5">
-                    {exp.bullets.map((bullet, i) => (
-                      <li key={i} className="resume-bullet-item">
-                        <span className="resume-bullet-dot"></span>
-                        <span className="theme-text-secondary text-sm leading-relaxed">{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ─── Education Section ─── */}
-        <section className="py-20 relative">
-          <h2 className="text-4xl font-bold text-center theme-text-primary mb-12 animate-fade-in-up">
-            Education
-          </h2>
+        <section id="education" className="py-24 lg:py-32 scroll-mt-24 relative">
+          <SectionHeader num="03" title="Education" />
           <div className="grid md:grid-cols-2 gap-6">
             {education.map((edu, index) => (
-              <div
-                key={index}
-                className="resume-edu-card hover:scale-105"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <h3 className="text-lg font-bold resume-exp-title mb-1">{edu.degree}</h3>
-                <p className="theme-text-primary text-base font-medium mb-3">{edu.school}</p>
-                <div className="flex items-center gap-3">
-                  <span className="resume-gpa-badge">GPA: {edu.gpa}</span>
+              <Reveal key={index} delay={index * 90}>
+                <div className="resume-edu-card spotlight-card h-full" onMouseMove={handleSpotlight}>
+                  <h3 className="text-lg font-bold resume-exp-title mb-1">{edu.degree}</h3>
+                  <p className="theme-text-primary text-base font-medium mb-3">{edu.school}</p>
+                  <div className="flex items-center gap-3">
+                    <span className="resume-gpa-badge">GPA: {edu.gpa}</span>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
 
         {/* ─── Projects Section ─── */}
-        <section className="py-20 relative">
-          <h2 className="text-4xl font-bold text-center theme-text-primary mb-12 animate-fade-in-up">
-            Projects
-          </h2>
+        <section id="projects" className="py-24 lg:py-32 scroll-mt-24 relative">
+          <SectionHeader num="04" title="Projects" />
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <div
-                key={index}
-                className="resume-project-card hover:scale-[1.03]"
-                style={{ animationDelay: `${index * 120}ms` }}
-              >
-                <h3 className="text-xl font-bold resume-exp-title mb-3">{project.name}</h3>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((t) => (
-                    <span key={t} className="resume-tech-tag">{t}</span>
-                  ))}
-                </div>
-                <p className="theme-text-secondary text-sm leading-relaxed mb-5">
-                  {project.description}
-                </p>
-                <div className="flex gap-3 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 btn-secondary px-4 py-2 rounded-lg text-sm font-medium"
-                  >
-                    <Github className="w-4 h-4" />
-                    GitHub
-                  </a>
-                  {project.liveUrl && (
+              <Reveal key={index} delay={index * 110}>
+                <div className="resume-project-card spotlight-card h-full" onMouseMove={handleSpotlight}>
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <h3 className="text-xl font-bold resume-exp-title">{project.name}</h3>
                     <a
-                      href={project.liveUrl}
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 btn-primary px-4 py-2 rounded-lg text-sm font-medium"
+                      className="resume-card-icon-link"
+                      aria-label={`${project.name} on GitHub`}
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
+                      <ArrowUpRight className="w-5 h-5" />
                     </a>
-                  )}
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((t) => (
+                      <span key={t} className="resume-tech-tag">{t}</span>
+                    ))}
+                  </div>
+                  <p className="theme-text-secondary text-sm leading-relaxed mb-5">
+                    {project.description}
+                  </p>
+                  <div className="flex gap-3 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 btn-secondary px-4 py-2 rounded-lg text-sm font-medium"
+                    >
+                      <Github className="w-4 h-4" />
+                      GitHub
+                    </a>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 btn-primary px-4 py-2 rounded-lg text-sm font-medium"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -559,11 +668,29 @@ const ResumePage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t backdrop-blur-xl transition-colors duration-300">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="theme-text-muted">
+      <footer className="py-10 px-4 border-t backdrop-blur-xl transition-colors duration-300">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="theme-text-muted text-sm">
             © 2026 Lakshay Mittal. Built with React, TypeScript & Tailwind CSS.
           </p>
+          <div className="flex gap-2">
+            <a
+              href="https://github.com/mittallakshayy"
+              className="resume-social-icon"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/mittallakshayy/"
+              className="resume-social-icon"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </footer>
 
@@ -576,30 +703,8 @@ const ResumePage = () => {
           from { opacity: 0; transform: translateX(30px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        .animate-slide-in-left { animation: slide-in-left 1s ease-out; }
-        .animate-slide-in-right { animation: slide-in-right 1s ease-out; }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-float-delay-1 { animation: float 3s ease-in-out infinite 0.5s; }
-        .animate-float-delay-2 { animation: float 3s ease-in-out infinite 1s; }
-        .animate-float-delay-3 { animation: float 3s ease-in-out infinite 1.5s; }
-
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes spin-reverse {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
-        }
-        .animate-spin-slow { animation: spin-slow 25s linear infinite; }
-        .animate-spin-reverse { animation: spin-reverse 20s linear infinite; }
-
-        .animate-fade-in-up { animation: resume-fade-up 1s ease-out; }
+        .animate-slide-in-left { animation: slide-in-left 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .animate-slide-in-right { animation: slide-in-right 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
       `}</style>
     </div>
   );

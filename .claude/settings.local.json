@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git config:*)",
       "Bash(sed:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "PowerShell(wsl bash -lc \"cd ~/Projects/portfolio-1 && node --version && npx tsc -b 2>&1 | head -40\")"
     ],
     "deny": []
   }
