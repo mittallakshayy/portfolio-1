@@ -1,69 +1,120 @@
-# React + TypeScript + Vite
+# Lakshay Mittal — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fast, single-page personal portfolio and résumé site built with React, TypeScript, and Tailwind CSS. It presents skills, experience, education, and projects with a polished, motion-rich interface and a light/dark theme.
 
-Currently, two official plugins are available:
+🔗 **Live:** _add your deployment URL here_
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Built with React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646cff?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss&logoColor=white)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Light & dark theme** — toggled at runtime, persisted to `localStorage`, and defaulting to the visitor's system preference.
+- **Scroll-reveal animations** — sections fade and slide into view as they enter the viewport via `IntersectionObserver`.
+- **Interactive hero** — an animated "code terminal" artifact with floating tech badges, parallax orbs, and a 3D tilt that tracks the cursor.
+- **Micro-interactions** — cursor-following spotlight cards, magnetic buttons, an aurora background wash, and a scroll-progress indicator.
+- **Accessibility-aware** — all motion respects `prefers-reduced-motion`, falling back to static content.
+- **Résumé download** — one-click PDF download from the nav bar.
+- **Responsive** — tuned layouts from mobile through large desktop.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Area | Choice |
+| --- | --- |
+| Framework | [React 19](https://react.dev/) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
+| Build tool | [Vite 7](https://vite.dev/) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
+| Routing | [React Router 7](https://reactrouter.com/) |
+| Icons | [lucide-react](https://lucide.dev/) |
+| Linting | [ESLint](https://eslint.org/) (typescript-eslint) |
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** `^20.19` or `>=22.12` (Node 22 LTS recommended)
+- **npm** (bundled with Node)
+
+### Installation
+
+```bash
+git clone https://github.com/mittallakshayy/<this-repo>.git
+cd portfolio-1
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Vite prints a local URL (default http://localhost:5173) with hot module replacement.
+
+### Production build
+
+```bash
+npm run build     # type-checks with tsc, then bundles with Vite
+npm run preview   # serves the production build locally
+```
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server with HMR |
+| `npm run build` | Type-check (`tsc -b`) and build for production |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint across the project |
+
+## Project Structure
+
+```
+portfolio-1/
+├── public/                 # Static assets (résumé PDF, project images)
+├── src/
+│   ├── components/
+│   │   ├── ResumePage.tsx   # Main page: hero, skills, experience, education, projects
+│   │   ├── ThemeContext.tsx # Theme provider + useTheme hook
+│   │   ├── ThemeToggle.tsx  # Light/dark switch
+│   │   └── Reveal.tsx       # Scroll-triggered reveal wrapper
+│   ├── index.css            # Tailwind layers + custom design tokens/animations
+│   └── main.tsx             # App entry, router, ThemeProvider
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+└── package.json
+```
+
+## Customization
+
+Most content lives in [`src/components/ResumePage.tsx`](src/components/ResumePage.tsx) as plain data arrays — edit these to make the site your own:
+
+- `skills` — skill categories and tags
+- `experiences` — roles, companies, dates, and bullet points
+- `education` — degrees and schools
+- `projects` — name, tech tags, description, and GitHub/live links
+
+Replace the résumé file at `public/Lakshay Mittal.pdf` and update the hero contact details and social links to point to your own.
+
+## Deployment
+
+The build outputs a static `dist/` folder, deployable to any static host (Vercel, Netlify, GitHub Pages, Cloudflare Pages):
+
+```bash
+npm run build
+# deploy the dist/ directory
+```
+
+## License
+
+This project is provided as a personal portfolio. Feel free to use it as inspiration; please replace the personal content with your own.
+
+---
+
+Built with React, TypeScript & Tailwind CSS by [Lakshay Mittal](https://www.linkedin.com/in/mittallakshayy/).
