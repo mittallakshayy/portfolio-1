@@ -219,7 +219,8 @@
     #joy{display:block;}
     .touchBtn{display:flex;}
     #hint{display:none;}
-    #prompt{bottom:calc(64px + clamp(72px,10.5vmin,94px) + clamp(60px,9vmin,82px) + env(safe-area-inset-bottom));}
+    /* anchor the "Read …" prompt to the top so it never covers the player model */
+    #prompt{top:calc(66px + env(safe-area-inset-top));bottom:auto;}
   }
   .credit{position:fixed;right:14px;bottom:10px;z-index:20;font-size:10.5px;color:rgba(167,182,207,.5);pointer-events:none;}
   @media (pointer:coarse), (hover:none){.credit{display:none;}}
@@ -243,7 +244,7 @@
     #joy{width:clamp(92px,30vmin,118px);height:clamp(92px,30vmin,118px);bottom:calc(12px + env(safe-area-inset-bottom));left:calc(14px + env(safe-area-inset-left));}
     #touchInteract{width:62px;height:62px;bottom:calc(14px + env(safe-area-inset-bottom));right:calc(16px + env(safe-area-inset-right));}
     #jumpBtn{width:54px;height:54px;bottom:calc(84px + env(safe-area-inset-bottom));right:calc(20px + env(safe-area-inset-right));}
-    #prompt{bottom:calc(150px + env(safe-area-inset-bottom));}
+    #prompt{top:calc(54px + env(safe-area-inset-top));bottom:auto;}
   }
   /* ---------- large screens / tablets ---------- */
   @media (min-width:900px){
