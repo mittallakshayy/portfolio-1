@@ -13,6 +13,8 @@ import {
   Settings,
   ArrowUpRight,
   ArrowDown,
+  ArrowUp,
+  Gamepad2,
 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { Reveal } from "./Reveal";
@@ -20,6 +22,8 @@ import { Reveal } from "./Reveal";
 const ResumePage = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [showTop, setShowTop] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   // Smooth, performant parallax + scroll progress driven through CSS custom
   // properties on the root node — avoids re-rendering the tree on every move.
@@ -46,6 +50,7 @@ const ResumePage = () => {
       const progress = max > 0 ? doc.scrollTop / max : 0;
       root?.style.setProperty("--scroll", progress.toFixed(4));
       setScrolled(doc.scrollTop > 24);
+      setShowTop(doc.scrollTop > 600);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -56,6 +61,24 @@ const ResumePage = () => {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(raf);
     };
+  }, []);
+
+  // Scroll-spy: highlight the nav link for the section currently in view.
+  useEffect(() => {
+    const ids = ["skills", "experience", "education", "projects"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   // Cursor-following glow on cards.
@@ -252,7 +275,11 @@ const ResumePage = () => {
 
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a key={link.href} href={link.href} className="nav-anchor">
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-anchor ${activeSection === link.href.slice(1) ? "is-active" : ""}`}
+                >
                   {link.label}
                 </a>
               ))}
@@ -323,17 +350,28 @@ const ResumePage = () => {
               </div>
 
               {/* CTAs + Social */}
-              <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start pt-1">
-                <a
-                  href="#projects"
-                  className="btn-pill btn-pill-primary"
-                  onMouseMove={handleMagnetic}
-                  onMouseLeave={resetMagnetic}
-                >
-                  View my work
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-                <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-4 justify-center lg:justify-start pt-1">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4">
+                  <a
+                    href="#projects"
+                    className="btn-pill btn-pill-primary justify-center"
+                    onMouseMove={handleMagnetic}
+                    onMouseLeave={resetMagnetic}
+                  >
+                    View my work
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="/world/index.html"
+                    className="btn-pill btn-pill-secondary justify-center"
+                    onMouseMove={handleMagnetic}
+                    onMouseLeave={resetMagnetic}
+                  >
+                    <Gamepad2 className="w-4 h-4" />
+                    Gamify This Portfolio
+                  </a>
+                </div>
+                <div className="flex gap-2 justify-center">
                   <a
                     href="https://github.com/mittallakshayy"
                     className="resume-social-icon"
@@ -693,6 +731,18 @@ const ResumePage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Back to top */}
+      {showTop && (
+        <button
+          type="button"
+          className="to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
 
       <style>{`
         @keyframes slide-in-left {

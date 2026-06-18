@@ -1625,6 +1625,18 @@ html.dark { --spotlight-color: rgba(56, 189, 248, 0.14); }
   box-shadow: var(--shadow-lg);
 }
 .btn-pill-primary:hover svg { transform: translate(2px, -2px); }
+.btn-pill-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+}
+.btn-pill-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-accent);
+  color: var(--accent-primary);
+}
+.btn-pill-secondary:hover svg { transform: scale(1.1) rotate(-8deg); }
 
 /* ─── Navigation anchors ─── */
 .nav-anchor {
@@ -1734,4 +1746,73 @@ nav.nav-bar.at-top {
   box-shadow: var(--shadow-lg);
   border-color: var(--border-accent);
   transform: translateY(-5px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ✨ MODERN UI v2 — stats, scroll-spy, scrollbar & polish
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Accent text selection ─── */
+::selection {
+  background: var(--accent-primary);
+  color: #fff;
+}
+
+/* ─── Custom gradient scrollbar ─── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-secondary) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  background-color: var(--accent-secondary);
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--accent-primary); }
+
+/* ─── Keyboard focus ring ─── */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ─── Active nav link (scroll-spy) ─── */
+.nav-anchor.is-active { color: var(--text-primary); }
+.nav-anchor.is-active::after { transform: scaleX(1); }
+
+/* ─── Animated sheen on project-card top accent bar ─── */
+.resume-project-card::before { background-size: 200% 100%; }
+.resume-project-card:hover::before { animation: gradient-slide 3s linear infinite; }
+
+/* ─── Floating back-to-top button ─── */
+.to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  box-shadow: var(--shadow-accent);
+  animation: to-top-in 0.4s var(--ease-out-expo) both;
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+.to-top:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: var(--shadow-lg);
+}
+@keyframes to-top-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.8); }
+  to { opacity: 1; transform: none; }
 }

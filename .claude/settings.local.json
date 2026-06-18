@@ -4,8 +4,19 @@
       "Bash(git config:*)",
       "Bash(sed:*)",
       "Bash(npm install:*)",
-      "PowerShell(wsl bash -lc \"cd ~/Projects/portfolio-1 && node --version && npx tsc -b 2>&1 | head -40\")"
+      "PowerShell(wsl bash -lc \"cd ~/Projects/portfolio-1 && node --version && npx tsc -b 2>&1 | head -40\")",
+      "Bash(cat)",
+      "Bash(wsl bash *)",
+      "PowerShell(wsl bash '$HOME/Projects/portfolio-1/pf-build.sh')",
+      "Bash(rm -f \"//wsl.localhost/Ubuntu/home/fnatic/Projects/portfolio-1/pf-build.sh\")",
+      "Bash(cat > *)",
+      "PowerShell(wsl bash -lc 'export PATH=\"$HOME/.nvm/versions/node/v22.22.3/bin:$PATH\"; ls node_modules/.bin 2>/dev/null | grep -iE \"playwright|puppeteer\" ; which chromium chromium-browser google-chrome 2>/dev/null; echo \"---done---\"')",
+      "PowerShell(wsl bash '$HOME/Projects/portfolio-1/pf-check.sh')"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "\\\\wsl.localhost\\Ubuntu\\home\\fnatic\\Projects\\portfolio-1",
+      "\\tmp"
+    ]
   }
 }
