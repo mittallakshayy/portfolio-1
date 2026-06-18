@@ -406,7 +406,7 @@ const ResumePage = () => {
                 <div className="absolute -inset-8 rounded-3xl artifact-terminal-glow blur-2xl opacity-60" />
 
                 {/* Code Terminal Window */}
-                <div className="relative artifact-terminal rounded-xl overflow-hidden shadow-2xl w-full h-[240px] sm:h-[280px] lg:h-[320px]">
+                <div className="relative artifact-terminal rounded-xl overflow-hidden shadow-2xl w-full h-[270px] sm:h-[280px] lg:h-[320px]">
                   {/* Title Bar */}
                   <div className="artifact-terminal-titlebar flex items-center px-4 py-3 gap-2">
                     <div className="flex gap-2">
