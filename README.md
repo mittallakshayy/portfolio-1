@@ -1,4 +1,4 @@
-# Lakshay Mittal — Portfolio
+# Lakshay Mittal — Portfolio Website
 
 A fast, single-page personal portfolio and résumé site built with React, TypeScript, and Tailwind CSS. It presents skills, experience, education, and projects with a polished, motion-rich interface and a light/dark theme.
 
