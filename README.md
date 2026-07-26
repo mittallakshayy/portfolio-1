@@ -112,3 +112,5 @@ This project is provided as a personal portfolio. Feel free to use it as inspira
 ---
 
 Built with React, TypeScript & Tailwind CSS by [Lakshay Mittal](https://www.linkedin.com/in/mittallakshayy/).
+
+New features coming soon....
