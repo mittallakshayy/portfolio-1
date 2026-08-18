@@ -103,51 +103,52 @@ const ResumePage = () => {
 
   const marqueeTech = [
     "React", "TypeScript", "Node.js", "Express", "Spring Boot", "Java",
-    "Python", "AWS", "GCP", "Docker", "Kubernetes", "PostgreSQL",
-    "MongoDB", "Redis", "Kafka", "Redux", "Hibernate", "Jenkins",
+    "Python", "AWS", "Azure", "Docker", "Kubernetes", "PostgreSQL",
+    "MongoDB", "Redis", "Kafka", "Spring AI", "Claude Code", "Datadog", "Airflow",
   ];
 
   const skills = {
-    languages: ["Java", "JavaScript/TypeScript", "Python", "C++", "SQL", "HTML/CSS"],
-    cloud: ["AWS", "GCP", "MySQL", "PostgreSQL", "MongoDB", "Redis", "Kafka"],
-    frameworks: ["ReactJS", "Redux", "NodeJS", "ExpressJS", "Spring Boot", "Hibernate"],
-    tools: ["Docker", "Kubernetes", "Jenkins", "Git", "JIRA", "Figma"],
+    languages: ["Java", "JavaScript/TypeScript", "Python", "SQL", "HTML/CSS"],
+    cloud: ["AWS (EC2, Lambda, S3, DynamoDB)", "Azure (Cosmos DB, Azure Functions, AKS)", "PostgreSQL", "MongoDB", "Redis"],
+    frameworks: ["ReactJS", "Redux", "Tailwind", "NodeJS", "ExpressJS", "Spring Boot", "Spring Security", "Spring Data JPA (Hibernate)"],
+    tools: ["Kafka", "Maven", "Docker", "Kubernetes", "Swagger", "JUnit", "Mockito", "Jest", "Airflow", "Claude Code", "Spring AI", "Datadog"],
   };
 
   const experiences = [
     {
-      title: "Full Stack Developer",
-      company: "Cognizant",
-      period: "Jan 2025 - Feb 2026",
-      location: "Remote, USA",
-      bullets: [
-        "Developed a dynamic front-end using React, enhancing user experience and boosting engagement by 10%",
-        "Built RESTful APIs using Node.js and Express.js, improving data exchange and reducing load times by 15%",
-        "Utilized Java and Spring Boot to create microservices that handle core business logic",
-        "Achieved 95% code coverage with comprehensive unit and integration tests using Jest and Mocha",
-      ],
-    },
-    {
       title: "Software Engineer",
-      company: "Infosys",
-      period: "Sept 2021 - Jun 2022",
-      location: "India",
+      company: "TechMentee, Inc.",
+      period: "Feb 2026 - Present",
+      location: "Alpharetta, GA (Remote)",
       bullets: [
-        "Led migration to AWS Lambda for critical event-driven services, optimizing cost-efficiency",
-        "Engineered front-end state management solution using React's Context API and custom hooks",
-        "Developed high-performance RESTful APIs using Java and Spring Boot, enhancing performance by 20%",
-        "Implemented distributed caching with AWS ElastiCache, improving response times by 15%",
+        "Engineered a secure service-to-service gateway in Java and Spring Boot with JWT-based authorization and OpenAPI schema validation across 10+ internal APIs",
+        "Diagnosed and eliminated N+1 query patterns in Spring Data JPA repositories using entity graphs and batch fetching, reducing redundant database round trips on high-traffic endpoints",
+        "Orchestrated Apache Airflow pipelines with idempotent tasks and automated retries, adding LLM-generated failure summaries that cut manual triage time by 40%",
+        "Containerized services with Docker and deployed to Kubernetes using rolling updates, readiness probes, and preStop graceful shutdown, enabling zero-downtime releases across environments",
+        "Instrumented services with Datadog dashboards and alerting, driving on-call incident response and root-cause analysis to reduce mean time to detection",
       ],
     },
     {
-      title: "Full Stack Developer Intern",
-      company: "Quadrant Televentures Ltd",
-      period: "Jan 2021 - June 2021",
-      location: "India",
+      title: "Software Engineer / Research Assistant",
+      company: "San Francisco State University",
+      period: "Jan 2025 - Feb 2026",
+      location: "San Francisco, CA",
       bullets: [
-        "Designed and developed a dynamic customer data management dashboard improving accessibility by 30%",
-        "Led implementation of RESTful APIs using Node.js for efficient back-end CRUD operations",
-        "Designed continuous performance monitoring system with AWS CloudWatch",
+        "Decomposed core business logic into Java and Spring Boot microservices, improving scalability and maintainability",
+        "Normalized a PostgreSQL schema to eliminate duplicate records, offsetting the added join cost with composite and covering indexes to keep read latency flat",
+        "Architected shared state management using Redux and custom React hooks, handling complex user workflows while improving component reusability and reducing code duplication",
+        "Raised Jest unit-test coverage on the React/Redux layer to 95%, including reducer and async-thunk paths that previously had no regression coverage",
+      ],
+    },
+    {
+      title: "Systems Engineer",
+      company: "Infosys",
+      period: "Sep 2021 - Jun 2022",
+      location: "Chandigarh, India",
+      bullets: [
+        "Migrated critical event-driven services to AWS Lambda, replacing always-on compute with auto-scaling handlers and cutting idle infrastructure cost",
+        "Developed RESTful APIs using Java and Spring Boot, improving service response times by 20%",
+        "Implemented distributed caching with AWS ElastiCache (Redis) to reduce database load, achieving a 15% improvement in response times during peak traffic",
       ],
     },
   ];
@@ -169,23 +170,21 @@ const ResumePage = () => {
     name: string;
     tech: string[];
     description: string;
-    githubUrl: string;
+    githubUrl?: string;
     liveUrl?: string;
   }[] = [
       {
         name: "HealthShare",
-        tech: ["PostgreSQL", "ReactJS", "Spring Boot", "NodeJS", "ExpressJS", "Llama", "D3JS"],
+        tech: ["Java", "PostgreSQL", "ReactJS", "AWS Lambda", "ExpressJS", "Llama", "D3JS"],
         description:
-          "AI-enhanced pandemic data repository with 120K+ healthcare professional entries. Features serverless Spring Boot functions, Llama LLM integration for NLP, and interactive D3JS visualizations.",
+          "Developed an analytics platform containing 120K+ entries of healthcare professionals' experiences during COVID-19. Wrote Spring Cloud Function handlers on AWS Lambda for async filtering and batch transforms, with an Express API serving the React dashboard; integrated Llama language model for thematic classification of free-text responses. Created an interactive visualization suite with D3JS, including drill-down dashboards and multi-dimensional query controls.",
         githubUrl: "https://github.com/mittallakshayy/health-share"
-
       },
       {
-        name: "GatorMart",
-        tech: ["MERN", "AWS", "Socket.IO", "OAuth", "WebRTC", "CI/CD"],
+        name: "DocQuery: Grounded Document Q&A Service",
+        tech: ["Java", "Spring Boot", "Spring AI", "PostgreSQL/pgvector", "Docker"],
         description:
-          "University marketplace for SFSU students. Features JWT/OAuth authentication, real-time video chat with WebRTC, messaging via Socket.IO, and automated CI/CD deployment.",
-        githubUrl: "https://github.com/mittallakshayy/SFSU-Gatormart",
+          "Built a document Q&A service in Spring Boot with schema-validated model responses, per-call timeouts and bounded retries, and a retrieval-only fallback when cited spans failed to match retrieved chunks. Implemented hybrid retrieval over pgvector and Postgres full-text search, fusing candidates with Reciprocal Rank Fusion behind a custom Spring AI DocumentRetriever. Designed chunk-level ingestion with content-hash deduplication, re-embedding only changed chunks on re-ingest.",
       },
     ];
 
@@ -325,11 +324,11 @@ const ResumePage = () => {
                 </h1>
 
                 <p className="text-xl md:text-2xl font-semibold mb-6 theme-text-secondary tracking-tight">
-                  Full Stack Developer
+                  Software Engineer
                 </p>
 
                 <p className="text-lg theme-text-muted max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                  Software Engineer experienced in MERN stack and Spring Boot, with a focus on scalable web applications, microservices, and agentic AI workflows.
+                  Software Engineer specializing in backend and distributed systems, building secure, scalable services with Java, Spring Boot, and cloud-native tooling.
                 </p>
               </div>
 
@@ -436,7 +435,7 @@ const ResumePage = () => {
                       <span className="code-indent" />
                       <span className="code-property">role</span>
                       <span className="code-operator">:</span>{" "}
-                      <span className="code-string">"Full Stack Developer"</span>
+                      <span className="code-string">"Software Engineer"</span>
                       <span className="code-punctuation">,</span>
                     </div>
                     <div className="artifact-code-line" style={{ animationDelay: '1.1s' }}>
@@ -657,15 +656,17 @@ const ResumePage = () => {
                 <div className="resume-project-card spotlight-card h-full" onMouseMove={handleSpotlight}>
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <h3 className="text-xl font-bold resume-exp-title">{project.name}</h3>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="resume-card-icon-link"
-                      aria-label={`${project.name} on GitHub`}
-                    >
-                      <ArrowUpRight className="w-5 h-5" />
-                    </a>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resume-card-icon-link"
+                        aria-label={`${project.name} on GitHub`}
+                      >
+                        <ArrowUpRight className="w-5 h-5" />
+                      </a>
+                    )}
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((t) => (
@@ -676,15 +677,17 @@ const ResumePage = () => {
                     {project.description}
                   </p>
                   <div className="flex gap-3 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 btn-secondary px-4 py-2 rounded-lg text-sm font-medium"
-                    >
-                      <Github className="w-4 h-4" />
-                      GitHub
-                    </a>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 btn-secondary px-4 py-2 rounded-lg text-sm font-medium"
+                      >
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    )}
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}

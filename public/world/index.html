@@ -1025,54 +1025,53 @@ const STOPS = [
     id:'about', kind:'home', road:0, side:1, accent:0x6ee7d6,
     signTitle:'LAKSHAY MITTAL', signSub:'Start here', emoji:'🏠',
     title:'Lakshay Mittal', sub:'Software Engineer · San Francisco, CA',
-    body:`<p>Hi, I'm Lakshay 👋 a full-stack software engineer who builds scalable, maintainable web apps with the <b>MERN stack</b> and <b>Spring Boot</b>.</p>
-    <p>Strong foundation in algorithms &amp; data structures, collaborative Git workflows, thorough code reviews, and agentic AI workflows. Follow the road and read each sign to tour my experience, projects &amp; skills — the street loops all the way around.</p>`
+    body:`<p>Hi, I'm Lakshay 👋 a software engineer specializing in <b>backend and distributed systems</b>, building secure, scalable services with <b>Java</b>, <b>Spring Boot</b>, and <b>cloud-native tooling</b>.</p>
+    <p>Currently a Software Engineer at <b>TechMentee, Inc.</b> Follow the road and read each sign to tour my experience, projects &amp; skills — the street loops all the way around.</p>`
   },
   {
     id:'skills', kind:'skills', road:1, side:-1, accent:0x8b9cff,
     signTitle:'SKILLS', signSub:'What I work with', emoji:'⚙️',
     title:'Skills', sub:'Languages · Cloud · Frameworks · Tools',
     body:`<div class="grp"><h4>Languages</h4><div class="chips">
-      <span class="chip">Java</span><span class="chip">JavaScript / TypeScript</span><span class="chip">Python</span><span class="chip">C++</span><span class="chip">SQL</span><span class="chip">HTML / CSS</span></div></div>
+      <span class="chip">Java</span><span class="chip">JavaScript / TypeScript</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">HTML / CSS</span></div></div>
       <div class="grp"><h4>Cloud &amp; Databases</h4><div class="chips">
-      <span class="chip">AWS (EC2, Lambda, S3, DynamoDB)</span><span class="chip">GCP</span><span class="chip">Azure (AKS, Cosmos DB)</span><span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span></div></div>
+      <span class="chip">AWS (EC2, Lambda, S3, DynamoDB)</span><span class="chip">Azure (Cosmos DB, Azure Functions, AKS)</span><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span></div></div>
       <div class="grp"><h4>Frameworks &amp; Libraries</h4><div class="chips">
-      <span class="chip">React</span><span class="chip">Redux</span><span class="chip">Zustand</span><span class="chip">Tailwind</span><span class="chip">Node / Express</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">Spring Data JPA</span><span class="chip">Hibernate</span></div></div>
+      <span class="chip">React</span><span class="chip">Redux</span><span class="chip">Tailwind</span><span class="chip">Node / Express</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">Spring Data JPA (Hibernate)</span></div></div>
       <div class="grp" style="margin-bottom:0"><h4>Tools &amp; Tech</h4><div class="chips">
-      <span class="chip">Linux</span><span class="chip">Kafka</span><span class="chip">Maven</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Nginx</span><span class="chip">Jenkins</span><span class="chip">Postman</span><span class="chip">Swagger</span><span class="chip">JUnit</span><span class="chip">Mockito</span><span class="chip">Jest</span><span class="chip">SonarQube</span><span class="chip">Claude Code</span></div></div>`
+      <span class="chip">Kafka</span><span class="chip">Maven</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Swagger</span><span class="chip">JUnit</span><span class="chip">Mockito</span><span class="chip">Jest</span><span class="chip">Airflow</span><span class="chip">Claude Code</span><span class="chip">Spring AI</span><span class="chip">Datadog</span></div></div>`
   },
   {
-    id:'cognizant', kind:'tower', road:2, side:1, accent:0x6aa0ff,
-    signTitle:'COGNIZANT', signSub:'Full-Stack · 2025–26', emoji:'💼',
-    title:'Cognizant', sub:'Full Stack Developer · Jan 2025 – Feb 2026 · Remote, USA',
+    id:'techmentee', kind:'tower', road:2, side:1, accent:0x6aa0ff,
+    signTitle:'TECHMENTEE', signSub:'Software Eng · 2026–Now', emoji:'💼',
+    title:'TechMentee, Inc.', sub:'Software Engineer · Feb 2026 – Present · Alpharetta, GA (Remote)',
     body:`<ul>
-      <li>Built a dynamic React front-end that boosted user engagement by ~10%.</li>
-      <li>Created RESTful APIs with Express.js, cutting load times by ~15%.</li>
-      <li>Engineered Java + Spring Boot microservices for core business logic, improving scalability &amp; maintainability.</li>
-      <li>Designed a normalized DB schema with efficient indexing to reduce query latency.</li>
-      <li>Integrated Hibernate ORM to streamline interactions with MySQL.</li>
-      <li>Wrote unit &amp; integration tests with Jest, hitting ~95% coverage.</li>
+      <li>Engineered a secure service-to-service gateway in <b>Java and Spring Boot</b> with JWT-based authorization and OpenAPI schema validation across <b>10+ internal APIs</b>.</li>
+      <li>Diagnosed and eliminated <b>N+1 query patterns</b> in Spring Data JPA repositories using entity graphs and batch fetching, reducing redundant database round trips on high-traffic endpoints.</li>
+      <li>Orchestrated <b>Apache Airflow</b> pipelines with idempotent tasks and automated retries, adding LLM-generated failure summaries that cut manual triage time by <b>40%</b>.</li>
+      <li>Containerized services with <b>Docker</b> and deployed to <b>Kubernetes</b> using rolling updates, readiness probes, and preStop graceful shutdown, enabling zero-downtime releases.</li>
+      <li>Instrumented services with <b>Datadog</b> dashboards and alerting, driving on-call incident response and root-cause analysis to reduce mean time to detection.</li>
     </ul>`
   },
   {
     id:'infosys', kind:'office', road:3, side:-1, accent:0x53d8c2,
-    signTitle:'INFOSYS', signSub:'Software Eng · 2021–22', emoji:'🏢',
-    title:'Infosys', sub:'Software Engineer · Sep 2021 – Jun 2022 · India',
+    signTitle:'INFOSYS', signSub:'Systems Eng · 2021–22', emoji:'🏢',
+    title:'Infosys', sub:'Systems Engineer · Sep 2021 – Jun 2022 · Chandigarh, India',
     body:`<ul>
-      <li>Led migration to AWS Lambda for event-driven services — better cost-efficiency and auto-scaling.</li>
-      <li>Built front-end state management with React Context API + custom hooks for complex workflows.</li>
-      <li>Developed high-performance Java + Spring Boot REST APIs (+20% service performance).</li>
-      <li>Added distributed caching with AWS ElastiCache (+15% response time at peak traffic).</li>
+      <li>Migrated critical event-driven services to <b>AWS Lambda</b>, replacing always-on compute with auto-scaling handlers and cutting idle infrastructure cost.</li>
+      <li>Developed RESTful APIs using <b>Java and Spring Boot</b>, improving service response times by <b>20%</b>.</li>
+      <li>Implemented distributed caching with <b>AWS ElastiCache (Redis)</b> to reduce database load, achieving a <b>15%</b> improvement in response times during peak traffic.</li>
     </ul>`
   },
   {
-    id:'quadrant', kind:'startup', road:4, side:1, accent:0xf0b24a,
-    signTitle:'QUADRANT', signSub:'Internship · 2021', emoji:'🌱',
-    title:'Quadrant Televentures Ltd', sub:'Full Stack Developer Intern · Jan – Jun 2021 · India',
+    id:'sfsu', kind:'campus', road:4, side:1, accent:0xf0b24a,
+    signTitle:'SFSU', signSub:'Research · 2025–26', emoji:'🎓',
+    title:'San Francisco State University', sub:'Software Engineer / Research Assistant · Jan 2025 – Feb 2026 · San Francisco, CA',
     body:`<ul>
-      <li>Built a dynamic customer-data dashboard that improved data accessibility by ~30%.</li>
-      <li>Implemented Express.js RESTful APIs for efficient CRUD operations.</li>
-      <li>Designed AWS CloudWatch monitoring delivering real-time metrics &amp; automated anomaly alerts.</li>
+      <li>Decomposed core business logic into <b>Java and Spring Boot</b> microservices, improving scalability and maintainability.</li>
+      <li>Normalized a <b>PostgreSQL</b> schema to eliminate duplicate records, offsetting the added join cost with composite and covering indexes to keep read latency flat.</li>
+      <li>Architected shared state management using <b>Redux</b> and custom <b>React hooks</b>, handling complex user workflows while improving component reusability and reducing code duplication.</li>
+      <li>Raised <b>Jest</b> unit-test coverage on the React/Redux layer to <b>95%</b>, including reducer and async-thunk paths that previously had no regression coverage.</li>
     </ul>`
   },
   {
@@ -1080,24 +1079,26 @@ const STOPS = [
     signTitle:'HEALTHSHARE', signSub:'Data Platform', emoji:'🧬',
     title:'HealthShare', sub:'Project · AI-Enhanced Pandemic Data Repository',
     body:`<div class="chips" style="margin-bottom:12px">
-      <span class="chip">PostgreSQL</span><span class="chip">React</span><span class="chip">Spring Boot</span><span class="chip">Node / Express</span><span class="chip">Llama</span><span class="chip">D3.js</span></div>
+      <span class="chip">Java</span><span class="chip">PostgreSQL</span><span class="chip">ReactJS</span><span class="chip">AWS Lambda</span><span class="chip">ExpressJS</span><span class="chip">Llama</span><span class="chip">D3JS</span></div>
       <ul>
-      <li>Analytics platform with <b>120K+</b> entries of healthcare professionals' COVID-19 experiences.</li>
-      <li>Serverless Spring Cloud Function handlers on AWS Lambda for data filtering.</li>
-      <li>Integrated the Llama language model for contextual analysis &amp; NLP, plus data transformation/modeling.</li>
-      <li>Built an interactive D3.js visualization suite with custom dashboards &amp; advanced filtering.</li>
-    </ul>`
+      <li>Developed an analytics platform containing <b>120K+</b> entries of healthcare professionals' experiences during COVID-19.</li>
+      <li>Wrote <b>Spring Cloud Function</b> handlers on <b>AWS Lambda</b> for async filtering and batch transforms, with an Express API serving the React dashboard; integrated <b>Llama</b> language model for thematic classification of free-text responses.</li>
+      <li>Created an interactive visualization suite with <b>D3JS</b>, including drill-down dashboards and multi-dimensional query controls.</li>
+    </ul>
+    <div class="linkrow" style="margin-top:10px">
+      <a class="linkbtn" href="https://github.com/mittallakshayy/health-share" target="_blank" rel="noopener">⌥ GitHub</a>
+    </div>`
   },
   {
-    id:'gatormart', kind:'shop', road:6, side:1, accent:0xf6a35a,
-    signTitle:'GATORMART', signSub:'Marketplace', emoji:'🛒',
-    title:'GatorMart', sub:'Project · A University Marketplace',
+    id:'docquery', kind:'shop', road:6, side:1, accent:0xf6a35a,
+    signTitle:'DOCQUERY', signSub:'RAG Q&A Service', emoji:'🤖',
+    title:'DocQuery: Grounded Document Q&A', sub:'Project · RAG-Powered Document Intelligence Service',
     body:`<div class="chips" style="margin-bottom:12px">
-      <span class="chip">MERN</span><span class="chip">AWS</span><span class="chip">Socket.IO</span><span class="chip">OAuth</span><span class="chip">WebRTC</span><span class="chip">CI/CD</span></div>
+      <span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring AI</span><span class="chip">PostgreSQL / pgvector</span><span class="chip">Docker</span></div>
       <ul>
-      <li>Marketplace for SFSU students to connect, list, and sell products.</li>
-      <li>Robust auth with JWT + OAuth, including email verification at sign-up.</li>
-      <li>Real-time video chat &amp; messaging via WebRTC and Socket.IO.</li>
+      <li>Built a document Q&A service in <b>Spring Boot</b> with schema-validated model responses, per-call timeouts and bounded retries, and a retrieval-only fallback when cited spans failed to match retrieved chunks.</li>
+      <li>Implemented <b>hybrid retrieval</b> over <b>pgvector</b> and Postgres full-text search, fusing candidates with <b>Reciprocal Rank Fusion</b> behind a custom Spring AI DocumentRetriever.</li>
+      <li>Designed chunk-level ingestion with <b>content-hash deduplication</b>, re-embedding only changed chunks on re-ingest.</li>
     </ul>`
   },
   {
@@ -1122,7 +1123,7 @@ const STOPS = [
       <a class="linkbtn" href="https://github.com/mittallakshayy" data-link="github" target="_blank" rel="noopener">⌥ GitHub</a>
       <a class="linkbtn" href="https://lakshaymittal.dev" data-link="portfolio" target="_blank" rel="noopener">🌐 Portfolio</a>
     </div>
-    <p style="margin-top:14px;color:#a7b6cf;font-size:12.5px">📍 Based in San Francisco, CA · open to software engineering roles.</p>`
+    <p style="margin-top:14px;color:#a7b6cf;font-size:12.5px">📍 Based in San Francisco, CA · Software Engineer at TechMentee, Inc.</p>`
   },
 ];
 
