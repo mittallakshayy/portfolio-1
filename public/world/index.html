@@ -84,10 +84,13 @@
 
   /* ---------- HUD ---------- */
   #hud{position:fixed;inset:0;z-index:20;pointer-events:none;}
+  #hudTopLeft{
+    position:absolute;top:calc(12px + env(safe-area-inset-top));left:calc(12px + env(safe-area-inset-left));
+    display:flex;flex-direction:column;gap:8px;pointer-events:none;
+  }
+  #hudTopLeft > *{pointer-events:auto;}
   #progress{
-    position:absolute;top:calc(16px + env(safe-area-inset-top));left:calc(16px + env(safe-area-inset-left));
     display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;
-    pointer-events:auto;
   }
   #progress .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);}
   #progress .pcount{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.01em;}
@@ -104,7 +107,7 @@
   @media (pointer:coarse), (hover:none){
     .hide-touch{display:none;}
     .kb-only{display:none;}
-    .touch-only{display:flex;}
+    .touch-only{display:none;}
   }
 
   /* ---------- floating interact prompt ---------- */
@@ -170,6 +173,23 @@
   }
   .linkbtn:hover{background:rgba(110,231,214,.12);border-color:rgba(110,231,214,.4);transform:translateY(-1px);}
 
+  /* ---------- leave world button ---------- */
+  #leaveWorld{
+    display:none;align-items:center;gap:7px;align-self:flex-start;
+    appearance:none;border:none;cursor:pointer;
+    font-family:var(--body);font-weight:600;font-size:12px;color:var(--ink-dim);
+    padding:8px 14px;border-radius:12px;
+    background:var(--panel);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--line);
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    transition:color .15s, background .15s, transform .12s;
+  }
+  #leaveWorld:hover{color:var(--ink);background:rgba(20,28,42,0.85);}
+  #leaveWorld:active{transform:scale(.96);}
+  #leaveWorld svg{width:14px;height:14px;flex:none;}
+
   /* ---------- toast ---------- */
   #toast{
     position:fixed;left:50%;top:74px;transform:translateX(-50%) translateY(-14px);z-index:45;
@@ -219,17 +239,39 @@
     #joy{display:block;}
     .touchBtn{display:flex;}
     #hint{display:none;}
-    /* anchor the "Read …" prompt to the top so it never covers the player model */
-    #prompt{top:calc(66px + env(safe-area-inset-top));bottom:auto;}
+    /* scale down HUD on mobile */
+    #hudTopLeft{gap:6px;}
+    #progress{padding:8px 10px;gap:8px;border-radius:12px;}
+    #progress .pcount{font-size:13px;}
+    #progress .plabel{font-size:9px;letter-spacing:.1em;}
+    #leaveWorld{font-size:11px;padding:6px 10px;border-radius:10px;}
+    #leaveWorld svg{width:12px;height:12px;}
+    /* anchor the "Read …" prompt below the top-left stack */
+    #prompt{bottom:auto;top:calc(110px + env(safe-area-inset-top));font-size:13px;}
+    /* center bubble on mobile for best readability */
+    #bubble{transform:translate(-50%,-50%) !important;}
+    #bubble .b-tail{display:none;}
+    .b-body{max-height:50vh;max-height:50dvh;padding:10px 12px 12px;font-size:12.5px;}
+    .b-head{padding:10px 12px 9px;}
+    .b-title{font-size:15px;}
+    .linkbtn{font-size:11px;padding:6px 9px;}
+    .chip{font-size:10.5px;padding:3px 7px;}
   }
-  .credit{position:fixed;right:14px;bottom:10px;z-index:20;font-size:10.5px;color:rgba(167,182,207,.5);pointer-events:none;}
-  @media (pointer:coarse), (hover:none){.credit{display:none;}}
-
   /* ---------- narrow screens ---------- */
   @media (max-width:560px){
     #introCard{padding:26px 22px;}
     #introCard .sub{font-size:13.5px;}
     .controls-row{gap:8px;margin-top:18px;}
+  }
+  @media (max-width:380px){
+    #hudTopLeft{top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));gap:4px;}
+    #progress{padding:6px 8px;gap:6px;border-radius:10px;}
+    #progress .pcount{font-size:12px;}
+    #progress .plabel{font-size:8px;}
+    #progress .dot{width:7px;height:7px;}
+    #leaveWorld{font-size:10px;padding:5px 8px;}
+    #leaveWorld svg{width:11px;height:11px;}
+    #bubble{width:min(320px,calc(100vw - 16px));}
   }
   /* ---------- short / landscape screens ---------- */
   @media (max-height:560px){
@@ -241,10 +283,16 @@
     .loading-note{margin-top:12px;}
   }
   @media (pointer:coarse) and (max-height:440px){
+    #hudTopLeft{top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));gap:4px;}
+    #progress{padding:6px 8px;gap:6px;border-radius:10px;}
+    #progress .pcount{font-size:12px;}
+    #progress .plabel{font-size:8px;}
+    #leaveWorld{font-size:10px;padding:5px 8px;border-radius:8px;}
     #joy{width:clamp(92px,30vmin,118px);height:clamp(92px,30vmin,118px);bottom:calc(12px + env(safe-area-inset-bottom));left:calc(14px + env(safe-area-inset-left));}
     #touchInteract{width:62px;height:62px;bottom:calc(14px + env(safe-area-inset-bottom));right:calc(16px + env(safe-area-inset-right));}
     #jumpBtn{width:54px;height:54px;bottom:calc(84px + env(safe-area-inset-bottom));right:calc(20px + env(safe-area-inset-right));}
-    #prompt{top:calc(54px + env(safe-area-inset-top));bottom:auto;}
+    #prompt{top:calc(80px + env(safe-area-inset-top));}
+    .b-body{max-height:40vh;max-height:40dvh;}
   }
   /* ---------- large screens / tablets ---------- */
   @media (min-width:900px){
@@ -257,12 +305,18 @@
 
   <!-- HUD -->
   <div id="hud">
-    <div id="progress" class="glass" style="display:none">
-      <span class="dot"></span>
-      <div>
-        <div class="pcount"><span id="pNum">0</span> / <span id="pTot">9</span></div>
-        <div class="plabel">stops discovered</div>
+    <div id="hudTopLeft">
+      <div id="progress" class="glass" style="display:none">
+        <span class="dot"></span>
+        <div>
+          <div class="pcount"><span id="pNum">0</span> / <span id="pTot">9</span></div>
+          <div class="plabel">stops discovered</div>
+        </div>
       </div>
+      <button id="leaveWorld" class="glass" onclick="window.location.href='/'">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Leave World
+      </button>
     </div>
     <div id="hint" class="glass hide-touch" style="display:none">
       <b>Move</b> WASD / arrows &nbsp;·&nbsp; <b>Jump</b> Space &nbsp;·&nbsp; <b>Look</b> drag &nbsp;·&nbsp; <b>Read sign</b> E
@@ -322,7 +376,6 @@
   <div id="joy"><div id="joyThumb"></div></div>
   <button id="jumpBtn" class="touchBtn">JUMP</button>
   <button id="touchInteract" class="touchBtn">READ</button>
-  <div class="credit">Inspired by abeto's “Messenger” · built with Three.js</div>
 
 <script type="importmap">
 {
@@ -759,7 +812,7 @@ function roofGable(w,d,color){
   const slope=Math.sqrt((d/2)*(d/2)+rh*rh), ang=Math.atan2(rh, d/2);
   for(const s of [1,-1]){
     const slab=new THREE.Mesh(new THREE.BoxGeometry(w+0.3,0.14,slope+0.16), toon(color));
-    slab.position.set(0, rh/2, s*d/4); slab.rotation.x=-s*ang; slab.castShadow=true; g.add(slab);
+    slab.position.set(0, rh/2, s*d/4); slab.rotation.x=s*ang; slab.castShadow=true; g.add(slab);
   }
   return g;
 }
@@ -1121,7 +1174,7 @@ const STOPS = [
     <div class="linkrow" style="margin-top:10px">
       <a class="linkbtn" href="https://www.linkedin.com/in/mittallakshayy" data-link="linkedin" target="_blank" rel="noopener">in · LinkedIn</a>
       <a class="linkbtn" href="https://github.com/mittallakshayy" data-link="github" target="_blank" rel="noopener">⌥ GitHub</a>
-      <a class="linkbtn" href="https://lakshaymittal.dev" data-link="portfolio" target="_blank" rel="noopener">🌐 Portfolio</a>
+      <a class="linkbtn" href="https://x.com/mittallakshayy" data-link="x" target="_blank" rel="noopener">𝕏 · @mittallakshayy</a>
     </div>
     <p style="margin-top:14px;color:#a7b6cf;font-size:12.5px">📍 Based in San Francisco, CA · Software Engineer at TechMentee, Inc.</p>`
   },
@@ -1379,6 +1432,7 @@ ui.begin.addEventListener('click', ()=>{
   ui.intro.style.opacity='0';
   setTimeout(()=>ui.intro.style.display='none', 600);
   ui.progress.style.display='flex';
+  document.getElementById('leaveWorld').style.display='flex';
   // keyboard hint only on non-touch; on mobile the intro already shows touch controls
   if(!matchMedia('(pointer:coarse), (hover:none)').matches) ui.hint.style.display='block';
 });
@@ -1421,8 +1475,17 @@ function closeDialog(){
 }
 
 // keep the info panel glued just above the building's sign; flip below near the top edge
+const isTouchDevice = matchMedia('(pointer:coarse), (hover:none)').matches;
 function positionBubble(){
   if(!dialogOpen || !currentStop) return;
+  // On mobile, center the bubble for best readability
+  if(isTouchDevice){
+    ui.bubble.style.left = '50%';
+    ui.bubble.style.top = '50%';
+    ui.bubble.classList.remove('below');
+    ui.bubble.style.opacity = '';
+    return;
+  }
   if(currentStop.signTop) _head.copy(currentStop.signTop);
   else _head.copy(currentStop.pos).addScaledVector(currentStop.pos.clone().normalize(), 2.7);
   _proj.copy(_head).project(camera);
